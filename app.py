@@ -13,7 +13,14 @@ app.mount("/static", StaticFiles(directory=BASE_DIR / "static"), name="static")
 templates = Jinja2Templates(directory=BASE_DIR / "templates")
 
 
-nomes = ["Ana", "Carlos", "Daniel", "Pedro", "Renato", "Sandro"]
+nomes = {
+    "Nome_1": "Ana",
+    "Nome_2": "Carlos",
+    "Nome_3": "Daniel",
+    "Nome_4": "Pedro",
+    "Nome_5": "Renato",
+    "Nome_6": "Sandro",
+}
 
 
 @app.get("/items/{id}", response_class=HTMLResponse)
@@ -24,23 +31,22 @@ async def read_item(request: Request, id: str):
 
 @app.get("/")
 async def home(request: Request):
-    context = {f"Nome_{i}": nome for i, nome in enumerate(nomes, start=1)}
     return templates.TemplateResponse(
         request=request,
         name="index.html",
-        context={"context": context},
+        context={"context": nomes},
     )
 
 
 @app.post("/")
 async def add_nome(request: Request, nome: str = Form(...)):
-    nomenovo = nome
-    if nomenovo:
-        nomes.append(nomenovo)
+    if nome:
+        novo_id = len(nomes) + 1
+        nomes[f"Nome_{novo_id}"] = nome
 
-    context = {f"Nome_{i}": nome_item for i, nome_item in enumerate(nomes, start=1)}
-    return templates.TemplateResponse( request=request,
+    return templates.TemplateResponse(
+        request=request,
         name="index.html",
-        context={"context": context},
+        context={"context": nomes},
     )
 
