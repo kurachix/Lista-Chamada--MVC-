@@ -1,0 +1,29 @@
+.titulo {
+
+    color: white;
+    background-color: black;
+    margin: 0 auto;
+    text-align: center;
+
+}
+
+.entrada, .botao {
+
+
+    color: black;
+    background-color: aqua;
+
+    margin: 20px auto;
+    justify-content: space-between;
+    text-align: center;
+
+    padding: 10px 10px 10px 10px;
+
+}
+
+.lista {
+
+    color: brown;
+    font-style: bold;
+
+}
